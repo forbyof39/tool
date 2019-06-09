@@ -58,18 +58,19 @@ def FtpMultiDown(_FileInfo, Thread=10):
     #print("Thread Number :",KOKO, " Counter :",sss)
     
     if(NNNN > KOKO):
-      lst = threading.Thread(target=FtpDown, args=(_FileInfo[sss][0], _FileInfo[sss][4], _addr, _user, _password, _DirName))
+      lst = threading.Thread(target=FtpDown, args=(_FileInfo[sss][0], 
+                                                   _FileInfo[sss][4], 
+                                                   _addr, 
+                                                   _user, 
+                                                   _password, 
+                                                   _DirName))
       lst.start()
       
     elif(NNNN <= KOKO):
-
+        
         while (1):
-
+            
             time.sleep(1)
-
-            if(NNNN > KOKO):
-                lst = threading.Thread(target=FtpDown, args=(_FileInfo[sss][0], _FileInfo[sss][4], _addr, _user, _password, _DirName))
-                lst.start()
 
             break
   
@@ -109,7 +110,11 @@ def FtpFileListRead(FolderName, addr, user, password):
         FileSize_buffer = int(entry.split(";")[2].lstrip().split("=")[1])
         FileName_buffer = entry.split(";")[3].lstrip()
         
-        FileInfo_buffer = [Num, FileType_buffer, FileModi_buffer, FileSize_buffer, FileName_buffer]
+        FileInfo_buffer = [Num, 
+                           FileType_buffer, 
+                           FileModi_buffer, 
+                           FileSize_buffer, 
+                           FileName_buffer]
         
         FileInfo.append(FileInfo_buffer)
         
@@ -156,5 +161,5 @@ def Start(ThreadNum = 10):
 
     for accs in a323:
         print(accs)
-#a
+
     FtpMultiDown(a323, ThreadNum)
