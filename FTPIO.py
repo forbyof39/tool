@@ -50,28 +50,36 @@ def FtpDownSingle(IP, user, password, NAME, DownloadedDIR, ftpDIR,  PORT = 21):
 # 멀티 다운로드 모듈
 def FtpMultiDown(_FileInfo, Thread=10):
 
-  # 쓰레드의 총 수
-  NNNN = Thread
+    global KOKO
 
-  for sss in range(len(_FileInfo)):
-    
-    #print("Thread Number :",KOKO, " Counter :",sss)
-    
-    if(NNNN > KOKO):
-      lst = threading.Thread(target=FtpDown, args=(_FileInfo[sss][0], 
-                                                   _FileInfo[sss][4], 
-                                                   _addr, 
-                                                   _user, 
-                                                   _password, 
-                                                   _DirName))
-      lst.start()
-      
-    elif(NNNN <= KOKO):
+    # 쓰레드의 총 수
+    NNNN = Thread
+
+    for sss in range(len(_FileInfo)):
         
-        while (1):
+        #print("Thread Number :",KOKO, " Counter :",sss)
+        
+        if(NNNN > KOKO):
+            lst = threading.Thread(target=FtpDown, args=(_FileInfo[sss][0], 
+                                                        _FileInfo[sss][4], 
+                                                        _addr, 
+                                                        _user, 
+                                                        _password, 
+                                                        _DirName))
+            lst.start()
+        
+        elif(NNNN <= KOKO):
             
-            time.sleep(1)
+            while (1):
+                
+                time.sleep(1)
 
+                break
+
+    # 모든 스레드가 끝날때까지 기다림
+    while(1):
+        if(KOKO!=0):
+            time.sleep(1)
             break
   
 # 파일 목록
