@@ -78,7 +78,8 @@ def FtpMultiDown(_FileInfo, Thread=10):
 
     # 모든 스레드가 끝날때까지 기다림
     while(1):
-        if(KOKO!=0):
+
+        if(KOKO==0):
             time.sleep(1)
             break
   
