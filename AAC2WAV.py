@@ -1,12 +1,10 @@
 import subprocess
 import numpy as np
 
-diretIN = "/content/"
-
-diretOUT = "/content/"
+diretIN = "/"
+diretOUT = "/"
 
 an = np.load( diretIN +"KyarrilKara.npy")
-
 
 for ss in an:
     
