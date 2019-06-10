@@ -60,28 +60,26 @@ def FtpMultiDown(_FileInfo, Thread=10):
         if(NNNN > KOKO):
           
             lst = threading.Thread(target=FtpDown, args=(_FileInfo[sss][0], 
-                                                        _FileInfo[sss][4], 
-                                                        _addr, 
-                                                        _user, 
-                                                        _password, 
-                                                        _DirName))
+                                                         _FileInfo[sss][4], 
+                                                         _addr, _user, _password, _DirName))
             lst.start()
         
         elif(NNNN <= KOKO):
             
             while (1):
                 
-                time.sleep(1)
+                time.sleep(1)            
+                
+                if(NNNN > KOKO):
+                  
+                    lst = threading.Thread(target=FtpDown, 
+                                           args=(_FileInfo[sss][0], 
+                                                 _FileInfo[sss][4], 
+                                                 _addr, _user, _password, _DirName))
+                    lst.start()
 
-                break
+                    break
             
-            lst = threading.Thread(target=FtpDown, args=(_FileInfo[sss][0], 
-                                                        _FileInfo[sss][4], 
-                                                        _addr, 
-                                                        _user, 
-                                                        _password, 
-                                                        _DirName))
-            lst.start()
 
     # 모든 스레드가 끝날때까지 기다림
     while(1):
