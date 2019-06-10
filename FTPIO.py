@@ -75,6 +75,13 @@ def FtpMultiDown(_FileInfo, Thread=10):
                 time.sleep(1)
 
                 break
+            
+            lst = threading.Thread(target=FtpDown, args=(_FileInfo[sss][0], 
+                                                        _FileInfo[sss][4], 
+                                                        _addr, 
+                                                        _user, 
+                                                        _password, 
+                                                        _DirName))
 
     # 모든 스레드가 끝날때까지 기다림
     while(1):
