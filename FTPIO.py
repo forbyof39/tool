@@ -4,10 +4,15 @@ import ftplib
 import os
 from ftplib import FTP
 
+########################################################
+# FTP 계정 변수
+########################################################
+
 # FTP 계정 설정
 _password = ""
 _addr = "" 
 _user = ""
+_port = "21"
 
 # 다운받아질 디렉토리
 _DirName = "./"       # ./대상폴더
@@ -16,8 +21,53 @@ _DirName = "./"       # ./대상폴더
 _FtpDirName = "./"   # ./대상폴더/
 
 ########################################################
-# FTP 유틸리티 함수
+# FTP 계정 변수 함수
 ########################################################
+
+def FtpSetting(ip, user, _pass):
+    
+    # FTP 계정 설정
+    global _password 
+    global _addr 
+    global _user 
+
+    _password = _pass
+    _addr = ip
+    _user = user
+
+def FtpDirectory(FTP_dir, PC_dir):
+
+    # 다운받아질 디렉토리
+    global _DirName
+    _DirName = PC_dir
+    
+    # FTP서버의 디렉토리
+    global _FtpDirName
+    _FtpDirName = FTP_dir
+
+########################################################
+# FTP 통신 함수
+########################################################
+
+def _FtpUp(address, user, password, port, filename, Dir, FtpDir):
+  
+    #filename = "보낼 파일이름"
+    
+    ftp=ftplib.FTP()
+    
+    ftp.connect(address,21)                         #ftp.connect("연결할 IP주소",21)
+    ftp.login(user,password)                        #ftp.login("로그인 아이디","로그인 비밀번호")
+    ftp.cwd("./")
+    os.chdir(r"Dir")                                #os.chdir(r"보낼 파일의 위치")
+    myfile = open(filename,'rb')
+    ftp.storbinary('STOR ' +filename, myfile )
+    myfile.close()
+    ftp.close
+    
+def FtpUp(FileName):
+    _FtpUp(_addr, _user, _password, _port,FileName, "./", "./"  )
+    
+    return 0
 
 KOKO = 0                    # 스레드 갯수 체크 변수
 
@@ -142,28 +192,7 @@ def FtpFileListRead(FolderName, addr, user, password):
     FileInfo_buffer = []        #
     
     return FileInfo
-
-def FtpSetting(ip, user, _pass):
-    
-    # FTP 계정 설정
-    global _password 
-    global _addr 
-    global _user 
-
-    _password = _pass
-    _addr = ip
-    _user = user
-
-def FtpDirectory(FTP_dir, PC_dir):
-
-    # 다운받아질 디렉토리
-    global _DirName
-    _DirName = PC_dir
-    
-    # FTP서버의 디렉토리
-    global _FtpDirName
-    _FtpDirName = FTP_dir
-
+  
 def Start(ThreadNum = 10):
 
     try:
