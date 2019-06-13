@@ -58,7 +58,7 @@ def _FtpUp(address, user, password, port, filename, Dir, FtpDir):
     ftp.connect(address,21)                         #ftp.connect("연결할 IP주소",21)
     ftp.login(user,password)                        #ftp.login("로그인 아이디","로그인 비밀번호")
     ftp.cwd("./")
-    os.chdir(rDir)                                #os.chdir(r"보낼 파일의 위치")
+    os.chdir(Dir)                                #os.chdir(r"보낼 파일의 위치")
     myfile = open(filename,'rb')
     ftp.storbinary('STOR ' +filename, myfile )
     myfile.close()
