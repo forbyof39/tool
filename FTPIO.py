@@ -140,7 +140,7 @@ def FtpMultiDown(_FileInfo, Thread=10):
             break
   
 # 파일 목록
-def FtpFileListRead(FolderName, addr, user, password):
+def _FtpFileListRead(FolderName, addr, user, password):
     """
     폴더 단위로는 작업을 실행하지 못함\n
     FolderName의 최상단에 파일들이 모조리 있어야함\n
@@ -192,7 +192,13 @@ def FtpFileListRead(FolderName, addr, user, password):
     FileInfo_buffer = []        #
     
     return FileInfo
-  
+
+def FtpFileList():
+    
+    buffer = _FtpFileListRead(_FtpDirName, _addr, user=_user, password= _password)
+    
+    return buffer
+
 def Start(ThreadNum = 10):
 
     try:
@@ -201,7 +207,7 @@ def Start(ThreadNum = 10):
     except FileExistsError:                   # 파일이 존재함
         print("Exist")
 
-    a323 = FtpFileListRead(_FtpDirName, _addr, user=_user, password= _password)
+    a323 = _FtpFileListRead(_FtpDirName, _addr, user=_user, password= _password)
 
     for accs in a323:
         print(accs)
